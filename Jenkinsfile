@@ -1,31 +1,36 @@
 pipeline {
-    agent {
-        docker {
-            //label 'docker'
-            image 'python:latest'
-        }
-    }
+    agent any
 
     stages {
-        stage('Compile') {
+        stage('Build') {
+            agent {
+                docker { image 'python:latest' }
+            }
             steps {
                 sh 'python3 -m compileall adder.py'
             }
         }
 
         stage('Run') {
+            agent {
+                docker { image 'python:latest' }
+            }
             steps {
                 sh 'python3 adder.py 3 5'
             }
         }
 
         stage('Unit test') {
+            agent {
+                docker { image 'python:latest' }
+            }
             steps {
                 sh 'python3 -m unittest adder.py'
             }
         }
     }
 }
+
 
 // node {
 //     // This will run on a node with Docker installed
