@@ -3,29 +3,32 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                docker { image 'python:latest' }
-            }
             steps {
-                sh 'python3 -m compileall adder.py'
+                script {
+                    docker.image('python:latest').inside {
+                        sh 'python3 -m compileall adder.py'
+                    }
+                }
             }
         }
 
         stage('Run') {
-            agent {
-                docker { image 'python:latest' }
-            }
             steps {
-                sh 'python3 adder.py 3 5'
+                script {
+                    docker.image('python:latest').inside {
+                        sh 'python3 adder.py 3 5'
+                    }
+                }
             }
         }
 
         stage('Unit test') {
-            agent {
-                docker { image 'python:latest' }
-            }
             steps {
-                sh 'python3 -m unittest adder.py'
+                script {
+                    docker.image('python:latest').inside {
+                        sh 'python3 -m unittest adder.py'
+                    }
+                }
             }
         }
     }
