@@ -28,7 +28,7 @@
 // }
 node {
     // This will run on a node with Docker installed
-    docker.image('python:3').inside {
+    docker.image('python:latest').inside {
         stage('Compile') {
             sh 'python3 -m compileall adder.py'
         }
