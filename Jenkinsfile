@@ -1,45 +1,46 @@
-// pipeline {
-//     agent {
-//         docker {
-//             label 'docker'
-//             image 'python:3'
-//         }
-//     }
+pipeline {
+    agent {
+        docker {
+            label 'docker'
+            image 'python:latest'
+        }
+    }
 
-//     stages {
-//         stage('Compile') {
-//             steps {
-//                 sh 'python3 -m compileall adder.py'
-//             }
-//         }
-
-//         stage('Run') {
-//             steps {
-//                 sh 'python3 adder.py 3 5'
-//             }
-//         }
-
-//         stage('Unit test') {
-//             steps {
-//                 sh 'python3 -m unittest adder.py'
-//             }
-//         }
-//     }
-// }
-node {
-    // This will run on a node with Docker installed
-    docker.image('python:latest').inside {
+    stages {
         stage('Compile') {
-            sh 'python3 -m compileall adder.py'
+            steps {
+                sh 'python3 -m compileall adder.py'
+            }
         }
 
         stage('Run') {
-            sh 'python3 adder.py 3 5'
+            steps {
+                sh 'python3 adder.py 3 5'
+            }
         }
 
         stage('Unit test') {
-            sh 'python3 -m unittest adder.py'
+            steps {
+                sh 'python3 -m unittest adder.py'
+            }
         }
     }
 }
+
+// node {
+//     // This will run on a node with Docker installed
+//     docker.image('python:latest').inside {
+//         stage('Compile') {
+//             sh 'python3 -m compileall adder.py'
+//         }
+
+//         stage('Run') {
+//             sh 'python3 adder.py 3 5'
+//         }
+
+//         stage('Unit test') {
+//             sh 'python3 -m unittest adder.py'
+//         }
+//     }
+// }
 
