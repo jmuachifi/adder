@@ -1,34 +1,45 @@
+// pipeline {
+//     agent any
+
+//     stages {
+//         stage('Build') {
+//             steps {
+//                 script {
+//                     docker.image('python:latest').inside {
+//                         sh 'python3 -m compileall adder.py'
+//                     }
+//                 }
+//             }
+//         }
+
+//         stage('Run') {
+//             steps {
+//                 script {
+//                     docker.image('python:latest').inside {
+//                         sh 'python3 adder.py 3 5'
+//                     }
+//                 }
+//             }
+//         }
+
+//         stage('Unit test') {
+//             steps {
+//                 script {
+//                     docker.image('python:latest').inside {
+//                         sh 'python3 -m unittest adder.py'
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
 pipeline {
     agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                script {
-                    docker.image('python:latest').inside {
-                        sh 'python3 -m compileall adder.py'
-                    }
-                }
-            }
-        }
-
-        stage('Run') {
-            steps {
-                script {
-                    docker.image('python:latest').inside {
-                        sh 'python3 adder.py 3 5'
-                    }
-                }
-            }
-        }
-
-        stage('Unit test') {
-            steps {
-                script {
-                    docker.image('python:latest').inside {
-                        sh 'python3 -m unittest adder.py'
-                    }
-                }
+    stages{
+        stage('Example'){
+            steps{
+                echo 'Hello World'
             }
         }
     }
