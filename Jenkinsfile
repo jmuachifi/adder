@@ -1,9 +1,19 @@
 pipeline {
+    
     agent {
         docker {
             //label 'docker'
             image 'python:latest'
+            args '-u root' // This allows running commands as root in the container
         }
+    }
+
+    beforeAgent {
+        // Install Docker inside the Jenkins agent container
+        sh 'apt-get update'
+        sh 'apt-get install -y docker.io'
+        //sh 'apt-get install -y python3'
+        sh 'usermod -aG docker jenkins'
     }
 
     stages {
