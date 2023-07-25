@@ -1,41 +1,31 @@
 pipeline {
-    
-    agent none // No default agent, will be specified later
+    agent {
+        docker {
+            //label 'docker'
+            image 'python:latest'
+        }
+    }
 
     stages {
-        stage('Install Docker') {
-            agent {
-                // Use a basic agent for Docker installation
-                docker {
-                    image 'python:latest'
-                    args '-u root' // This allows running commands as root in the container
-                }
-            }
+        stage('Compile') {
             steps {
-                // Install Docker inside the Jenkins agent container
-                sh 'apt-get update'
-                sh 'apt-get install -y docker.io'
-                sh 'usermod -aG docker jenkins'
+                sh 'python3 -m compileall adder.py'
             }
         }
 
-        stage('Compile, Run, and Unit test') {
-            agent {
-                docker {
-                    // Specify Python image as the agent after Docker is installed
-                    image 'python:latest'
-                }
-            }
+        stage('Run') {
             steps {
-                // Your previous stages' steps go here
-                sh 'python3 -m compileall adder.py'
                 sh 'python3 adder.py 3 5'
+            }
+        }
+
+        stage('Unit test') {
+            steps {
                 sh 'python3 -m unittest adder.py'
             }
         }
     }
 }
-
 
 
 // pipeline {
