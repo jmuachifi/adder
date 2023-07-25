@@ -15,7 +15,7 @@ pipeline {
 
         stage('Run') {
             steps {
-                sh 'python3 adder.py 3 5'
+                sh 'python3 adder.py 33 5'
             }
         }
 
