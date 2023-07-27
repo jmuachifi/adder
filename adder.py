@@ -10,7 +10,7 @@ def main(args):
 class TestAdder(unittest.TestCase):
 
     def test_adder_success(self):
-        self.assertEqual(adder(3, 5), 8)
+        self.assertEqual(adder(3, 18), 21)
 
     def test_adder_typeerror(self):
         self.assertRaises(TypeError, adder, 5)    
